@@ -1,17 +1,17 @@
 # 🎓 Campus Lost & Found Portal
-A web-based platform designed to help college students report, browse, and recover lost belongings on campus.
+A web-based application that helps college students report lost items and find items reported by other students on campus.
+The goal of this project is to make the process of reporting and finding lost belongings easier, faster, and more organized within a college campus.
 
-## 📌 About the Project
-The Campus Lost & Found Portal provides a common platform where students can report lost items and browse items reported as found. It aims to make recovering lost belongings easier and more organized within a college campus.
-
-## ✨ Features
-- 👤 Student account registration
-- 🔐 Login and authentication
-- 🎒 Report lost or found items
-- 🔍 Browse reported items
-- 📍 View item descriptions and locations
-- 📞 View the owner's contact information
-- 🔑 Forgot password functionality
+## 📌 Features
+- 🔐 **User Registration & Login** – Create an account and log in using a college email address.
+- 🎓 **College Email Restriction** – Registration is restricted to college email addresses ending in `@uem.edu.in`.
+- 📧 **Email OTP Verification** – Verify your email during registration, if configured.
+- 🔑 **Forgot Password** – Password recovery feature.
+- 📝 **Report Lost or Found Items** – Submit item details such as name, description, location, and date.
+- 🔍 **Browse Items** – View reported items.
+- 🔒 **Password Security** – Passwords are hashed before being stored.
+- 🗄️ **SQLite Database** – Store user and item information.
+- 🚪 **Logout** – Log out of your account.
 
 ## 🛠️ Tech Stack
 **Frontend**
@@ -26,64 +26,162 @@ The Campus Lost & Found Portal provides a common platform where students can rep
 **Database**
 - SQLite
 
-**Additional Libraries**
+**Libraries & Tools**
 - bcryptjs
 - express-session
+- Nodemailer
+- dotenv
+- Git & GitHub
+- Visual Studio Code
 
-## 📁 Project Structure
+## 📂 Project Structure
+
 ```text
-Campus-lost-and-found/
+campus-loss-and-found-portal/
+│
 ├── index.html
 ├── login.html
 ├── register.html
+├── forgot-password.html
 ├── browse.html
 ├── report.html
-├── forgot-password.html
 ├── style.css
 ├── script.js
 ├── server.js
 ├── package.json
 ├── package-lock.json
-├── start-portal.bat
 ├── .gitignore
+├── .env.example
 └── README.md
 ```
 
-## ⚙️Installation and Setup
-**Prerequisites**
--Node.js and npm installed on your computer
+> Note: `lostfound.db` and `start-portal.cmd` may also exist in the local project folder. The database file should generally not be committed if it contains personal data. The startup script is intended for local development on Windows.
 
--Git installed (optional, for cloning the repository)
+## ⚙️ Prerequisites
 
+Before running the project, install:
+- [Node.js](https://nodejs.org/)
+- npm (included with Node.js)
+- A web browser
+- Git (optional, for cloning the repository)
 
-## 🖥️Steps to run the project
-1.Clone this repository:
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/Nupurrrrr/Campus-lost-and-found.git
 ```
-2.Open the project folder:
+
+
+
+### 2. Open the Project Folder
+
 ```bash
-cd Campus-lost-and-found
+cd campus-lost-and-found-portal
 ```
-3.Install the dependencies:
+
+### 3. Install Dependencies
+
 ```bash
 npm install
 ```
-4.Configure any required environment variables in a local .env file, if applicable.
 
-5.Start the server using the command configured in package.json.
+### 4. Configure Environment Variables
 
-6.Open the local URL displayed by the server in your browser.
+Create a `.env` file in the project root directory.
 
-## 🔒 Security Notes
--Do not upload .env files or secret credentials.
+Add the environment variables required by `server.js`, such as the email service configuration and session secret.
 
--The SQLite database file is excluded from version control.
+Example:
 
--Use your own environment variables when configuring the application.
+```env
+PORT=3000
+SESSION_SECRET=replace_with_a_long_random_secret
+
+BREVO_SMTP_HOST=smtp-relay.brevo.com
+BREVO_SMTP_PORT=587
+BREVO_SMTP_USER=your_smtp_login
+BREVO_SMTP_PASS=your_smtp_key
+```
+
+Use the exact variable names expected by your `server.js`. Email settings are needed only if email verification or password recovery uses SMTP.
+
+**Important:** Never upload your actual `.env` file, email credentials, SMTP keys, or session secrets to GitHub.
+
+### 5. Start the Server
+
+```bash
+npm start
+```
+
+### 6. Open the Application
+
+Open the following address in your browser:
+
+```text
+http://localhost:3000
+```
+
+Keep the server terminal running while using the application.
+
+## 🔄 How It Works
+
+1. A student registers using their college email address.
+2. The student verifies their email if OTP verification is enabled.
+3. The student logs in using their registered email and password.
+4. The student can report a lost or found item.
+5. Item information is stored in the SQLite database.
+6. Other logged-in students can browse reported items.
+7. Students can use the available contact information to coordinate the return of belongings.
+
+## 🗄️ Database
+
+The application uses SQLite to store information.
+
+The database may contain tables for:
+
+- **Users** – Stores registered user information.
+- **Items** – Stores reported lost and found item details.
+
+Item information may include:
+- Item ID
+- Item type
+- Item name
+- Description
+- Location
+- Date
+- Contact information
+
+## 🔐 Security Notes
+
+- Passwords are hashed using `bcryptjs`.
+- User sessions are managed using `express-session`.
+- College email addresses are restricted by the registration logic.
+- SMTP credentials and other secrets should be stored in environment variables.
+- Authentication and authorization should be enforced on the server side.
+
+This project is intended as a college learning project and should receive additional security testing before production deployment.
 
 ## 🎯 Project Objective
-To provide college students with a simple and accessible way to report lost belongings and find items recovered on campus.
+
+The objective of this project is to provide a simple and accessible platform for college students to report lost belongings and find items that have been reported on campus.
+
+It aims to reduce the difficulty of finding lost items and improve communication among students.
+
+## 🔮 Future Improvements
+
+- Add item images.
+- Add advanced search and filters.
+- Add an item recovery confirmation feature.
+- Improve mobile responsiveness.
+- Deploy the application online.
+- Add an administrator dashboard.
+- Improve security and input validation.
 
 ## 👩‍💻 Author
+
+**Nupur**
+
 Developed as a college Software Engineering project.
+
