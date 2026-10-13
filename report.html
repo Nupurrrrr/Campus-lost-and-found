@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Report Item | Campus Lost & Found</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            Campus Lost & Found
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="browse.html">Browse Items</a>
+            <a href="report.html">Report Item</a>
+        </nav>
+
+    </header>
+
+
+    <!-- REPORT FORM -->
+
+    <main class="form-container">
+
+        <h1>Report an Item</h1>
+
+        <p class="form-description">
+            Tell us about the item you lost or found on campus.
+        </p>
+
+
+        <form id="reportForm">
+
+            <!-- Lost or Found -->
+
+            <label for="type">
+                What happened?
+            </label>
+
+            <select id="type" required>
+
+                <option value="">
+                    Select an option
+                </option>
+
+                <option value="Lost">
+                    I lost something
+                </option>
+
+                <option value="Found">
+                    I found something
+                </option>
+
+            </select>
+
+
+            <!-- Item Name -->
+
+            <label for="itemName">
+                Item Name
+            </label>
+
+            <input
+                type="text"
+                id="itemName"
+                placeholder="e.g. Black Wallet"
+                required
+            >
+
+
+            <!-- Description -->
+
+            <label for="description">
+                Description
+            </label>
+
+            <textarea
+                id="description"
+                placeholder="Describe the item..."
+                required
+            ></textarea>
+
+
+            <!-- Location -->
+
+            <label for="location">
+                Location
+            </label>
+
+            <input
+                type="text"
+                id="location"
+                placeholder="e.g. Library"
+                required
+            >
+
+
+            <!-- Date -->
+
+            <label for="date">
+                Date
+            </label>
+
+            <input
+                type="date"
+                id="date"
+                required
+            >
+
+
+            <!-- Contact -->
+
+            <label for="contact">
+                Your Contact
+            </label>
+
+            <input
+                type="text"
+                id="contact"
+                placeholder="Email or phone number"
+                required
+            >
+
+
+            <!-- Submit Button -->
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Submit Report
+            </button>
+
+        </form>
+
+    </main>
+
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "campus-loss-and-found-portal",
+  "version": "1.0.0",
+  "description": "Campus Lost and Found Portal",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.7",
+    "express": "^5.3.0",
+    "express-session": "^1.19.0",
+    "nodemailer": "^10.1.0",
+    "sqlite3": "^6.0.1"
+  }
+}

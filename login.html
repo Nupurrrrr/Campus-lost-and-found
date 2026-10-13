@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Campus Lost & Found</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            Campus Lost & Found
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="browse.html">Browse Items</a>
+            <a href="report.html">Report Item</a>
+        </nav>
+
+    </header>
+
+
+    <main class="form-container">
+
+        <h1>College Login</h1>
+
+        <p class="form-description">
+            Login using your UEM college email.
+        </p>
+
+
+        <form id="loginForm">
+
+            <label for="email">
+                College Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="example@uem.edu.in"
+                required
+            >
+
+
+            <label for="password">
+                Campus Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter campus password"
+                required
+            >
+
+
+            <!-- Forgot Password -->
+
+            <p style="text-align: right; margin-top: 8px;">
+
+                <a href="forgot-password.html">
+                    Forgot Password?
+                </a>
+
+            </p>
+
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Login
+            </button>
+
+        </form>
+
+
+        <p style="text-align: center; margin-top: 20px;">
+
+            Don't have an account?
+
+            <a href="register.html">
+                Create Account
+            </a>
+
+        </p>
+
+
+        <p style="text-align:center; margin-top:20px;">
+
+            Only <strong>@uem.edu.in</strong>
+            email addresses are allowed.
+
+        </p>
+
+    </main>
+
+
+    <script>
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+
+        loginForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const email =
+                    document.getElementById("email")
+                    .value
+                    .trim();
+
+
+                const password =
+                    document.getElementById("password")
+                    .value;
+
+
+                // Check UEM email
+
+                if (
+                    !email
+                        .toLowerCase()
+                        .endsWith("@uem.edu.in")
+                ) {
+
+                    alert(
+                        "Please use your UEM college email."
+                    );
+
+                    return;
+                }
+
+
+                try {
+
+                    const response =
+                        await fetch("/api/login", {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                email: email,
+
+                                password: password
+
+                            })
+
+                        });
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (response.ok) {
+
+                        alert(
+                            "Login successful!"
+                        );
+
+
+                        // Go to Home page
+
+                        window.location.href =
+                            "index.html";
+
+
+                    } else {
+
+                        alert(
+                            result.error ||
+                            "Login failed."
+                        );
+
+                    }
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    alert(
+                        "Could not connect to the server!"
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

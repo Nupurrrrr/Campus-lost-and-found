@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register | Campus Lost & Found</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="form-container">
+
+        <form id="registerForm">
+
+            <h1>Create Account</h1>
+
+            <!-- College Email -->
+            <label for="email">College Email</label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your UEM email"
+                required
+            >
+
+
+            <!-- Password -->
+            <label for="password">Password</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Create a password"
+                required
+            >
+
+
+            <!-- Confirm Password -->
+            <label for="confirmPassword">Confirm Password</label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm your password"
+                required
+            >
+
+
+            <!-- OTP SECTION -->
+            <div id="otpSection" style="display: none;">
+
+                <label for="otp">Enter OTP</label>
+
+                <input
+                    type="text"
+                    id="otp"
+                    maxlength="6"
+                    placeholder="Enter 6-digit OTP"
+                >
+
+                <button type="button" id="verifyOtpBtn">
+                    Verify OTP
+                </button>
+
+            </div>
+
+
+            <!-- Create Account -->
+            <button type="submit" class="submit-btn">
+                Create Account
+            </button>
+
+        </form>
+
+
+        <p>
+            Already have an account?
+            <a href="login.html">Login</a>
+        </p>
+
+    </main>
+
+
+    <script>
+
+        const registerForm =
+            document.getElementById("registerForm");
+
+        const otpSection =
+            document.getElementById("otpSection");
+
+        const otpInput =
+            document.getElementById("otp");
+
+        const verifyOtpBtn =
+            document.getElementById("verifyOtpBtn");
+
+
+        let registeredEmail = "";
+
+
+        // =====================================
+        // SEND OTP
+        // =====================================
+
+        registerForm.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+
+            // Check passwords
+            if (password !== confirmPassword) {
+
+                alert("Passwords do not match!");
+
+                return;
+            }
+
+
+            try {
+
+                const response = await fetch("/api/register", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        email: email,
+
+                        password: password
+
+                    })
+
+                });
+
+
+                const data = await response.json();
+
+
+                if (!response.ok) {
+
+                    alert(
+                        data.error ||
+                        "Could not send OTP"
+                    );
+
+                    return;
+                }
+
+
+                // Save email for OTP verification
+                registeredEmail = email;
+
+
+                alert(
+                    "OTP has been sent to your UEM email. Please check your inbox."
+                );
+
+
+                // Show OTP section
+                otpSection.style.display = "block";
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Something went wrong. Please try again."
+                );
+
+            }
+
+        });
+
+
+        // =====================================
+        // VERIFY OTP
+        // =====================================
+
+        verifyOtpBtn.addEventListener(
+            "click",
+            async function () {
+
+                const otp =
+                    otpInput.value.trim();
+
+
+                if (otp.length !== 6) {
+
+                    alert(
+                        "Please enter the 6-digit OTP."
+                    );
+
+                    return;
+                }
+
+
+                try {
+
+                    const response =
+                        await fetch("/api/verify-otp", {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                email: registeredEmail,
+
+                                otp: otp
+
+                            })
+
+                        });
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        alert(
+                            data.error ||
+                            "Invalid OTP"
+                        );
+
+                        return;
+                    }
+
+
+                    alert(
+                        "Account created successfully!"
+                    );
+
+
+                    // Go to login page
+                    window.location.href =
+                        "login.html";
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    alert(
+                        "Something went wrong while verifying OTP."
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

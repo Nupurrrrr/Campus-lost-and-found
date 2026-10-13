@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Browse Lost & Found</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            Campus Lost & Found
+        </div>
+
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="browse.html">
+                Browse Items
+            </a>
+
+            <a href="report.html">
+                Report Item
+            </a>
+
+            <a href="#" id="logoutLink">
+                Logout
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <main class="browse-container">
+
+        <h1>
+            Lost & Found Items
+        </h1>
+
+        <p class="browse-description">
+            Browse items reported by students on campus.
+        </p>
+
+
+        <!-- SEARCH AND FILTER -->
+
+        <div class="search-filter">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search item..."
+            >
+
+            <select id="filterSelect">
+
+                <option value="All">
+                    All Items
+                </option>
+
+                <option value="Lost">
+                    Lost Items
+                </option>
+
+                <option value="Found">
+                    Found Items
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- ITEMS -->
+
+        <div id="itemsContainer">
+
+            <div class="item-card">
+
+                <h2>
+                    Loading items...
+                </h2>
+
+                <p>
+                    Please wait.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="browse-buttons">
+
+            <a
+                href="index.html"
+                class="browse-btn browse-secondary"
+            >
+                Back to Home
+            </a>
+
+            <a
+                href="report.html"
+                class="browse-btn browse-primary"
+            >
+                Report an Item
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- BROWSE JAVASCRIPT -->
+
+    <script>
+
+        let allItems = [];
+
+
+        const itemsContainer =
+            document.getElementById("itemsContainer");
+
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+
+        const filterSelect =
+            document.getElementById("filterSelect");
+
+
+        // Get items from server
+
+        fetch("/api/items")
+
+            .then(response => {
+
+                if (!response.ok) {
+
+                    throw new Error("Failed to get items");
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(items => {
+
+                allItems = items;
+
+                displayItems(allItems);
+
+            })
+
+            .catch(error => {
+
+                console.log("Error:", error);
+
+                itemsContainer.innerHTML = `
+
+                    <div class="item-card">
+
+                        <h2>
+                            Could not load items
+                        </h2>
+
+                        <p>
+                            Please make sure the server is running.
+                        </p>
+
+                    </div>
+
+                `;
+
+            });
+
+
+        // Display items
+
+        function displayItems(items) {
+
+            itemsContainer.innerHTML = "";
+
+
+            if (items.length === 0) {
+
+                itemsContainer.innerHTML = `
+
+                    <div class="item-card">
+
+                        <h2>
+                            No items found.
+                        </h2>
+
+                        <p>
+                            Try another search or filter.
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            items.forEach(function(item) {
+
+                const itemCard =
+                    document.createElement("div");
+
+
+                itemCard.className =
+                    "item-card";
+
+
+                itemCard.innerHTML = `
+
+                    <div class="item-header">
+
+                        <h2>
+                            ${item.itemName}
+                        </h2>
+
+                        <span class="status ${item.type.toLowerCase()}">
+                            ${item.type}
+                        </span>
+
+                    </div>
+
+
+                    <p>
+
+                        <strong>
+                            Description:
+                        </strong>
+
+                        <br>
+
+                        ${item.description}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            Location:
+                        </strong>
+
+                        <br>
+
+                        ${item.location}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            Date:
+                        </strong>
+
+                        <br>
+
+                        ${item.date}
+
+                    </p>
+
+
+                    <div class="contact-section">
+
+                        <button
+                            class="contact-btn"
+                            onclick="showContact(this, '${item.contact}')"
+                        >
+                            Show Contact
+                        </button>
+
+                        <span class="contact-number"></span>
+
+                    </div>
+
+                `;
+
+
+                itemsContainer.appendChild(itemCard);
+
+            });
+
+        }
+
+
+        // Show / Hide contact
+
+        function showContact(button, contact) {
+
+            const contactNumber =
+                button.nextElementSibling;
+
+
+            if (contactNumber.innerText === "") {
+
+                contactNumber.innerText =
+                    "Contact: " + contact;
+
+                button.innerText =
+                    "Hide Contact";
+
+            } else {
+
+                contactNumber.innerText = "";
+
+                button.innerText =
+                    "Show Contact";
+
+            }
+
+        }
+
+
+        // Search
+
+        searchInput.addEventListener(
+            "input",
+            filterItems
+        );
+
+
+        // Filter
+
+        filterSelect.addEventListener(
+            "change",
+            filterItems
+        );
+
+
+        // Search + Filter function
+
+        function filterItems() {
+
+            const searchText =
+                searchInput.value.toLowerCase();
+
+
+            const selectedType =
+                filterSelect.value;
+
+
+            const filteredItems =
+                allItems.filter(function(item) {
+
+                    const matchesSearch =
+                        item.itemName
+                            .toLowerCase()
+                            .includes(searchText);
+
+
+                    const matchesType =
+                        selectedType === "All" ||
+                        item.type === selectedType;
+
+
+                    return matchesSearch && matchesType;
+
+                });
+
+
+            displayItems(filteredItems);
+
+        }
+
+    </script>
+
+
+    <!-- LOGOUT JAVASCRIPT -->
+
+    <script>
+
+        const logoutLink =
+            document.getElementById("logoutLink");
+
+
+        logoutLink.addEventListener(
+            "click",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                try {
+
+                    const response =
+                        await fetch("/api/logout", {
+
+                            method: "POST"
+
+                        });
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (response.ok) {
+
+                        alert(
+                            "Logged out successfully!"
+                        );
+
+
+                        window.location.href =
+                            "login.html";
+
+                    } else {
+
+                        alert(result.error);
+
+                    }
+
+                } catch (error) {
+
+                    console.log(error);
+
+                    alert(
+                        "Could not logout!"
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
