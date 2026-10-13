@@ -37,7 +37,7 @@ The goal of this project is to make the process of reporting and finding lost be
 ## 📂 Project Structure
 
 ```text
-campus-loss-and-found-portal/
+campus-loss-and-found/
 │
 ├── index.html
 ├── login.html
@@ -48,6 +48,7 @@ campus-loss-and-found-portal/
 ├── style.css
 ├── script.js
 ├── server.js
+├── start-portal.bat
 ├── package.json
 ├── package-lock.json
 ├── .gitignore
