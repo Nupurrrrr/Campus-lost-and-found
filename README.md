@@ -55,7 +55,7 @@ campus-loss-and-found-portal/
 └── README.md
 ```
 
-> Note: `lostfound.db` and `start-portal.cmd` may also exist in the local project folder. The database file should generally not be committed if it contains personal data. The startup script is intended for local development on Windows.
+> Note: `lostfound.db` and `start-portal.bat` may also exist in the local project folder. The database file should generally not be committed if it contains personal data. The startup script is intended for local development on Windows.
 
 ## ⚙️ Prerequisites
 
