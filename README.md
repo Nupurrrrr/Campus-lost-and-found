@@ -77,7 +77,9 @@ npm install
 
 ## 🔒 Security Notes
 -Do not upload .env files or secret credentials.
+
 -The SQLite database file is excluded from version control.
+
 -Use your own environment variables when configuring the application.
 
 ## 🎯 Project Objective
