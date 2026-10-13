@@ -109,7 +109,15 @@ Use the exact variable names expected by your `server.js`. Email settings are ne
 
 **Important:** Never upload your actual `.env` file, email credentials, SMTP keys, or session secrets to GitHub.
 
-### 5. Start the Server
+### 5. Start the Application
+
+**Option 1: Windows users**
+
+Double-click the `start-portal.bat` file in the project folder. The server will start and the application will open automatically in your default browser.
+
+**Option 2: Using the Terminal**
+
+Run the following command in the project directory:
 
 ```bash
 npm start
@@ -117,11 +125,9 @@ npm start
 
 ### 6. Open the Application
 
-Open the following address in your browser:
+If the browser does not open automatically, visit:
 
-```text
-http://localhost:3000
-```
+`http://localhost:3000`
 
 Keep the server terminal running while using the application.
 
@@ -144,9 +150,7 @@ The database may contain tables for:
 - **Users** – Stores registered user information.
 - **Items** – Stores reported lost and found item details.
 
-Item information may include:
-- Item ID
-- Item type
+Item information include:
 - Item name
 - Description
 - Location
@@ -166,7 +170,6 @@ This project is intended as a college learning project and should receive additi
 ## 🎯 Project Objective
 
 The objective of this project is to provide a simple and accessible platform for college students to report lost belongings and find items that have been reported on campus.
-
 It aims to reduce the difficulty of finding lost items and improve communication among students.
 
 ## 🔮 Future Improvements
@@ -182,6 +185,5 @@ It aims to reduce the difficulty of finding lost items and improve communication
 ## 👩‍💻 Author
 
 **Nupur**
-
 Developed as a college Software Engineering project.
 
