@@ -186,5 +186,6 @@ It aims to reduce the difficulty of finding lost items and improve communication
 ## 👩‍💻 Author
 
 **Nupur**
+
 Developed as a college Software Engineering project.
 
