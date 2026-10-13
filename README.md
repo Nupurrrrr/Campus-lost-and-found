@@ -52,6 +52,7 @@ Campus-lost-and-found/
 ## ⚙️Installation and Setup
 **Prerequisites**
 -Node.js and npm installed on your computer
+
 -Git installed (optional, for cloning the repository)
 
 
@@ -69,7 +70,9 @@ cd Campus-lost-and-found
 npm install
 ```
 4.Configure any required environment variables in a local .env file, if applicable.
+
 5.Start the server using the command configured in package.json.
+
 6.Open the local URL displayed by the server in your browser.
 
 ## 🔒 Security Notes
