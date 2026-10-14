@@ -7,7 +7,7 @@ The goal of this project is to make the process of reporting and finding lost be
 - 🎓 **College Email Restriction** – Registration is restricted to college email addresses ending in `@uem.edu.in`.
 - 📧 **Email OTP Verification** – Verify your email during registration, if configured.
 - 🔑 **Forgot Password** – Password recovery feature.
-- 📝 **Report Lost or Found Items** – Submit item details such as name, description, location, and date.
+- 📝 **Report Lost or Found Items** – Submit item details such as name, description, location, date and contact details.
 - 🔍 **Browse Items** – View reported items.
 - 🔒 **Password Security** – Passwords are hashed before being stored.
 - 🗄️ **SQLite Database** – Store user and item information.
